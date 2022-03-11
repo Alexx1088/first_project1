@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Posta;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -10,57 +12,95 @@ class PostController extends Controller
 
 public function index() {
 
-  $post = Posta::where('is_published', 1)->first();
+    //$category = Category::find(1);
 
-  dd($post->title);
+    $post = Posta::find(3);
 
-}
+    $tag = Tag::find(1);
 
-public  function create(){
+    dd($tag->posts);
 
-    $postArr = [
-        [
-        'title' => 'title of post from phpstorm',
-        'content' => 'some interesting content',
-        'image' => 'imageblabla.jpg',
-        'likes' => '20',
-        'is_published' => '1',
-        ],
+      // dd($category->posts);
 
-        [
-            'title' => 'another title of post from phpstorm',
-            'content' => 'anothersome interesting content',
-            'image' => 'another imageblabla.jpg',
-            'likes' => '50',
-            'is_published' => '1',
-        ],
+ // $posts = Posta::all();
 
-    ];
+  /*$category = Category::find(1);
 
-   foreach ($postArr as $post) {
+   $posts = Posta::where('category_id', $category->id)->get();
 
-     Posta::create($post);
+  dd($posts);*/
 
-   }
+// return view('post.index', compact('posts'));
 
 }
 
+public  function create() {
 
-    public function update() {
+    return view('post.create');
 
-     $post = Posta::find(6);
+}
+
+public function store() {
+
+    $data = request()->validate([
+
+        'title'=> '',
+        'content'=> '',
+        'image'=> '',
+
+    ]);
+
+    Posta::create($data);
+
+    return redirect()->route('post.index');
+
+}
+
+public function show(Posta $post) {
+
+ //   dd($post);
+
+   //$post = Posta::findOrFail($id);
+
+ return view('post.show', compact('post'));
+
+}
+
+public function edit(Posta $post) {
+
+return view('post.edit', compact('post'));
 
 
-    $post->update([
+}
 
-       'title' => 'blabla',
-       'content' => 'qq',
+    public function update(Posta $post) {
 
-            ]);
+        $data = request()->validate([
 
-    dd('updated');
+            'title'=> 'string',
+            'content'=> 'string',
+            'image'=> 'string',
+
+        ]);
+
+  //  dd($data);
+
+    $post->update($data);
+
+    return redirect()->route('post.show', $post->id);
 
     }
+
+    public function destroy(Posta $post) {
+
+    $post->delete();
+
+    return redirect()->route('post.index');
+
+    }
+
+
+
 
     public function delete(){
 
