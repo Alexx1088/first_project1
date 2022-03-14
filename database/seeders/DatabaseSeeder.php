@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Posta;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +15,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+      $posts = Posta::factory(10)->make();
+
+       dd($posts);
+
         // \App\Models\User::factory(10)->create();
     }
 }
