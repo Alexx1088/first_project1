@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Posta;
+use App\Models\Tag;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,10 +17,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-      $posts = Posta::factory(10)->make();
+        //  $posts = Posta::factory(10)->create();
 
-       dd($posts);
+        Category::factory(20)->create();
+        $tags = Tag::factory(50)->create();
+        $posts = Posta::factory(200)->create();
 
-        // \App\Models\User::factory(10)->create();
+        foreach ($posts as $post) {
+            $tagsIds = $tags->random(5)->pluck('id');
+            $post->tags()->attach($tagsIds);
+
+            // \App\Models\User::factory(10)->create();
+             }
+        }
     }
-}
