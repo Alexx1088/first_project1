@@ -20,7 +20,6 @@ Route::get('/', function () {
 
 Route::group(['namespace' => 'Post'], function() {
 
-
     Route::get('/posts', 'IndexController')->name('post.index');
 
     Route::get('/posts/create', 'CreateController')->name('post.create');
@@ -36,6 +35,16 @@ Route::group(['namespace' => 'Post'], function() {
     Route::delete('/posts/{post}', 'DestroyController')->name('post.delete');
 });
 
+Route::group(['namespace'=> 'Admin', 'prefix'=> 'admin'], function () {
+
+  Route::group(['namespace'=>'Post'], function () {
+
+    Route::get('/post', 'IndexController')->name('admin.post.index');
+
+    });
+
+});
+
 
 Route::get('/posts/update', 'PostController@update');
 
@@ -47,6 +56,7 @@ Route::get('/posts/uoc', 'PostController@updateOrCreate');
 
 
 Route::get('/main', 'MainController@index')->name('main.index');
+
 Route::get('/contacts', 'ContactController@index')->name('contact.index');
 Route::get('/about', 'AboutController@index')->name('about.index');
 
