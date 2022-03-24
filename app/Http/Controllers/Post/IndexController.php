@@ -21,37 +21,5 @@ public function __invoke(FilterRequest $request)
     return view('post.index', compact('posts'));
 
 
-  //  $query = Posta::query();
-/*
-    if (isset($data['category_id'])) {
-        $query->where('category_id', $data['category_id']);
-    }
-
-    if (isset($data['title'])) {
-        $query->where('title', 'like', "%{$data['title']}%");
-    }
-
-  if (isset($data['content'])) {
-        $query->where('content', 'like', "%{$data['content']}%");
-    }*/
-
-//$posts = $query->get();
-   // dd($posts);
-
-
-
-   // dd($data);
-
-   /* $post = Posta::where('is_published', 1)
-        ->where('category_id', $data['category_id'])
-        ->get();*/
-
-/*
-    $posts = Posta::paginate(10);
-
-//dd($posts);
-
-    return view('post.index', compact('posts'));*/
-
 }
 }
