@@ -18,6 +18,7 @@ public  function store($data){
     $post = Posta::create($data);
 
     $post->tags()->attach($tags);
+    
 }
 
 public function update($post, $data) {

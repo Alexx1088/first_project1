@@ -15,6 +15,8 @@ public function __invoke(UpdateRequest $request, Posta $post)
 
     $data = $request->validated();
 
+ //   dd($data);
+
     $this->service->update($post, $data);
 
     return redirect()->route('post.show', $post->id);

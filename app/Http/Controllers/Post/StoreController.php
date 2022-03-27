@@ -13,7 +13,9 @@ public function __invoke(StoreRequest $request)
 {
     // TODO: Implement __invoke() method.
 
+
     $data = $request->validated();
+  //  dd($data);
 
     $this->service->store($data);
 
