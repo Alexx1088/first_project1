@@ -18,7 +18,8 @@ public  function store($data){
     $post = Posta::create($data);
 
     $post->tags()->attach($tags);
-    
+
+    return $post;
 }
 
 public function update($post, $data) {
@@ -30,6 +31,7 @@ public function update($post, $data) {
     $post->update($data);
 
     $post->tags()->sync($tags);
+   return $post = $post->fresh();
 }
 
 }

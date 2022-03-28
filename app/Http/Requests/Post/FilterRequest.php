@@ -28,7 +28,9 @@ class FilterRequest extends FormRequest
             'content'=> 'string',
           //  'image'=> 'string',
             'category_id'=> '',
-       //     'tags'=>'',
+        //  'tags'=>'',
+            'page'=>'',
+            'per_page'=>'',
         ];
     }
 }
