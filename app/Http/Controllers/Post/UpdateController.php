@@ -18,10 +18,10 @@ public function __invoke(UpdateRequest $request, Posta $post)
 
  //   dd($data);
 
-   $post =  $this->service->update($post, $data);
+   $post = $this->service->update($post, $data);
 
-   return new PostResource($post);
+ //  return new PostResource($post);
 
-  //  return redirect()->route('post.show', $post->id);
+   return redirect()->route('post.show', $post->id);
 }
 }
