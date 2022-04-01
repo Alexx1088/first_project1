@@ -20,7 +20,9 @@ public function __invoke(StoreRequest $request)
 
    $post = $this->service->store($data);
 
-   return new PostResource($post);
+  return $post instanceof Posta ? new PostResource($post) :$post;
+
+  // return new PostResource($post);
 
    // return redirect()->route('post.index');
 

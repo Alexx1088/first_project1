@@ -4,20 +4,41 @@
 namespace App\Services\Post;
 
 
+use App\Models\Category;
 use App\Models\Posta;
+use App\Models\Tag;
+use Illuminate\Support\Facades\DB;
 
 class Service
 {
 public  function store($data){
 
-    $tags = $data['tags'];
+    try {
+        DB::beginTransaction();
 
-    unset($data['tags']);
+        $tags = $data['tags'];
+
+        $category = $data['category'];
+
+        unset($data['tags'], $data['category']);
 
 
-    $post = Posta::create($data);
+        $tagIds = $this->getTagIds($tags);
 
-    $post->tags()->attach($tags);
+        $data['category_id'] = $this->getCategoryId($category);
+
+        $post = Posta::create($data);
+
+        $post->tags()->attach($tagIds);
+
+        DB::commit();
+
+    } catch (\Exception $exception) {
+
+        DB::rollBack();
+      return $exception->getMessage();
+   //  dd($exception->getMessage());
+    }
 
     return $post;
 }
@@ -32,6 +53,24 @@ public function update($post, $data) {
 
     $post->tags()->sync($tags);
    return $post = $post->fresh();
+}
+
+private function getCategoryId($item) {
+
+    $category = !isset($item['id']) ? Category::create($item) : Category::find($item['id']);
+return $category->id;
+    }
+
+
+private function getTagIds($tags) {
+
+        $tagIds = [];
+
+       foreach ($tags as $tag) {
+        $tag = !isset($tag['id']) ? Tag::create($tag) : Tag::find($tag['id']);
+        $tagIds[] = $tag->id;
+    }
+return $tagIds;
 }
 
 }

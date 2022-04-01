@@ -16,7 +16,7 @@ public function __invoke(UpdateRequest $request, Posta $post)
 
     $data = $request->validated();
 
- //   dd($data);
+   dd($data);
 
    $post = $this->service->update($post, $data);
 
